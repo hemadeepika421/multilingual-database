@@ -1,0 +1,305 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Text Extractor</title>
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        :root {
+            --orange: #e67e22;
+            --black: #565656;
+            --blue: #288ecd;
+            --light-color: #777;
+            --border: 0.1rem solid rgba(0, 0, 0, 0.2);
+            --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            outline: none;
+            border: none;
+            text-decoration: none;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: lighter;
+        }
+
+        html {
+            font-size: 62.5%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            scroll-padding-top: 6rem;
+        }
+
+        .btn {
+            margin-top: 1rem;
+            display: inline-block;
+            background: var(--black);
+            color: #fff;
+            border-radius: 0.5rem;
+            padding: 0.9rem 3rem;
+            cursor: pointer;
+            font-size: 1.7rem;
+        }
+
+        .btn:hover {
+            background: var(--orange);
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: #202020;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            align-items: center;
+            padding: 1.2rem 7%;
+        }
+
+        .header .logo {
+            color: var(--blue);
+            font-size: 2.5rem;
+            margin-right: auto;
+        }
+
+        .header .logo span {
+            color: var(--orange);
+        }
+
+        .header .navbar a {
+            color: var(--light-color);
+            margin-right: 2rem;
+            font-size: 1.7rem;
+            text-transform: capitalize;
+        }
+
+        .header .navbar a:hover {
+            color: var(--orange);
+        }
+
+        .header .icons i {
+            height: 4.5rem;
+            line-height: 4.5rem;
+            width: 4.5rem;
+            text-align: center;
+            color: var(--black);
+            background: #eee;
+            border-radius: 50%;
+            margin-left: 0.7rem;
+            font-size: 1.7rem;
+            cursor: pointer;
+        }
+
+        .header .icons i:hover {
+            color: #fff;
+            background: var(--orange);
+        }
+        body {
+          background-color: #282828;
+          padding: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          overflow-x: hidden;
+      }
+      .container {
+          width: 100%;
+          margin-top: 7vh;
+          max-width: 800px;
+          background-color: #242424de;
+          box-shadow: 0 2px 5px rgba(192, 192, 192, 0.1);
+          padding: 20px;
+          border-radius: 5px;
+          overflow-wrap: break-word;
+      }
+
+      h1 {
+          text-align: center;
+          color: #e4e4e4;
+      }
+
+      form {
+          text-align: center;
+          margin-bottom: 20px;
+      }
+
+      input[type="file"] {
+          display: none;
+      }
+
+      .upload-btn {
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          cursor: pointer;
+          border-radius: 5px;
+      }
+
+      .popup-btn {
+          background-color: #007bff;
+          color: #fff;
+          margin-bottom: 15px;
+          border: none;
+          padding: 5px 10px;
+          cursor: pointer;
+          border-radius: 5px;
+      }
+
+      .book-container {
+          background-color: #4f4d4db7;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          padding: 20px;
+          border-radius: 5px;
+          overflow-wrap: break-word;
+      }
+
+      .paragraph {
+          font-size: 1.2rem;
+          margin-bottom: 20px;
+          padding: 10px;
+          color: aliceblue;
+          background-color: #393939;
+          border-radius: 5px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .content-container {
+          padding: 20px;
+          background-color: rgba(255, 255, 255, 0.9);
+          border-radius: 10px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+          overflow-y: auto;
+          position: relative;
+          z-index: 1;
+      }
+
+      .popup {
+          display: none;
+          position: fixed;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.7);
+          z-index: 9999;
+      }
+
+      .popup-content {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          max-width: 80%;
+          max-height: 80%;
+          overflow: auto;
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 5px;
+      }
+
+      .close-btn {
+          font-size: xxx-large;
+          position: absolute;
+          color: rgb(54, 54, 54);
+          top: 0px;
+          right: 0px;
+          cursor: pointer;
+      }
+        @media only screen and (max-width: 768px) {
+            .header {
+                padding: 1.2rem 5%;
+            }
+
+            .btn {
+                padding: 0.9rem 2rem;
+                font-size: 1.5rem;
+            }
+
+            .header .logo {
+                font-size: 2rem;
+            }
+
+            .header .navbar a {
+                font-size: 1.5rem;
+                margin-right: 1rem;
+            }
+
+            .header .icons i {
+                height: 4rem;
+                line-height: 4rem;
+                width: 4rem;
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .book-container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <a href="{% url 'home' %}" class="logo"><span>P</span>olyglot</a>
+
+    <nav class="navbar">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'admin_page' %}">Return</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="nav__button-ghost">Logout <i
+                    class="fa-solid fa-right-from-bracket"></i></a>
+        {% else %}
+            <a href="{% url 'login' %}" class="nav__button-ghost">Login <i class="fa-solid fa-right-to-bracket"></i></a>
+        {% endif %}
+    </nav>
+</header>
+<div class="container">
+    <h1>PDF Text Extractor</h1>
+    <form enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <label for="pdfFileInput" class="upload-btn">Upload PDF</label>
+        <input type="file" id="pdfFileInput" name="pdfFile" accept=".pdf"/>
+        <button type="submit">Extract Text</button>
+    </form>
+    <div class="popup" id="imagePopup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">×</span>
+            <img src="data:image/png;base64,{{ wordcloud_base64 }}" alt="WordCloud"/>
+        </div>
+    </div>
+    <div class="book-container">
+        <h1>Book Content</h1>
+        <button onclick="openPopup()" class="popup-btn">View WordCloud</button>
+        {% for paragraph in paragraphs %}
+            <div class="paragraph">
+                <p>{{ paragraph }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- custom js file link -->
+<script src="{% static "citation/script.js" %}"></script>
+<script>
+    function openPopup() {
+        document.getElementById("imagePopup").style.display = "block";
+    }
+
+    function closePopup() {
+        document.getElementById("imagePopup").style.display = "none";
+    }
+</script>
+</body>
+</html>

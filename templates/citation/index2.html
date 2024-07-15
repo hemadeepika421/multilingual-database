@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Page</title>
+     <!-- font awesome cdn link  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="{% static "citation/style2.css" %}">
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo"><span>P</span>olyglot</a>
+  
+        <nav class="navbar">
+          <a href="/">Home</a>
+          {% comment %} <a href="demo.html#posts">about us</a>
+          <a href="demo.html#contact">contact us</a> {% endcomment %}
+        </nav>
+  
+        <div class="icons">
+          <i class="fas fa-bars" id="menu-bars"></i>
+          <i class="fas fa-search" id="search-icon"></i>
+        </div>
+  
+        <form action="" class="search-form">
+          <label for="cars">Search with</label>
+            <select id="type_of_search" name="type_of_search">
+            <option value="1">Title</option>
+            <option value="2">Accession-number</option>
+            <option value="3">Author firstname</option>
+            <option value="4">Author lastname</option>
+            <option value="5">Keyword</option>
+            <option value="6">Publishers</option>
+            <option value="7">Place</option>
+          </select>
+          <input
+            type="search"
+            name=""
+            placeholder="search here..."
+            id="search-box"
+          />
+          <label for="search-box" class="fas fa-search"></label>
+        </form>
+      </header>
+
+    <main>
+        <section class="container" id="posts">
+        <div class="list-container">
+            <!-- List of articles, journals, novels, etc. -->
+            <div class="box">
+                <img src="{%static "citation/istockphoto-1437997089-612x612.jpg"%}" alt="Article 1">
+                <div class="info">
+                    <h2>Article 1 Title</h2>
+                    <p>Author: Author Name</p>
+                    <p>Accession Number: ACC001</p>
+                    <p>Publication: Publication Date</p>
+                </div>
+            </div>
+
+            <div class="box">
+                <img src="{%static "citation/kship.jpg"%}" alt="Article 2">
+                <div class="info">
+                    <h2>Article 2 Title</h2>
+                    <p>Author: Author Name</p>
+                    <p>Accession Number: ACC002</p>
+                    <p>Publication: Publication Date</p>
+                </div>
+            </div>
+            <div class="box">
+                <img src="{%static "citation/kship.jpg"%}" alt="Article 2">
+                <div class="info">
+                    <h2>Article 2 Title</h2>
+                    <p>Author: Author Name</p>
+                    <p>Accession Number: ACC002</p>
+                    <p>Publication: Publication Date</p>
+                </div>
+            </div>
+            <div class="box">
+                <img src="{%static "citation/kship.jpg"%}" alt="Article 2">
+                <div class="info">
+                    <h2>Article 2 Title</h2>
+                    <p>Author: Author Name</p>
+                    <p>Accession Number: ACC002</p>
+                    <p>Publication: Publication Date</p>
+                </div>
+            </div>
+            <div class="box">
+                <img src="{%static "citation/kship.jpg"%}" alt="Article 2">
+                <div class="info">
+                    <h2>Article 2 Title</h2>
+                    <p>Author: Author Name</p>
+                    <p>Accession Number: ACC002</p>
+                    <p>Publication: Publication Date</p>
+                </div>
+            </div>
+            <!-- Add more articles as needed -->
+
+        </div>
+        <div class="sidebar">
+            <div class="filter" id="filter">
+              Filters
+              <i class="fa-solid fa-sort"></i>
+            </div>
+            <div class="box" id="categories">
+                <h3 class="title">categories</h3>
+                <div class="category">
+                  <a href="#"> journals <span>42</span></a>
+                  <a href="#"> articles <span>75</span> </a>
+                  <a href="#"> novels <span>22</span> </a>
+                  <a href="#"> books <span>17</span> </a>
+                  <a href="#"> manuscripts <span>48</span> </a>
+                  <a href="#"> poetry <span>12</span> </a>
+                  <a href="#"> biography <span>17</span> </a>
+                  <a href="#"> religion <span>31</span> </a>
+                  <a href="#"> lingustic <span>6</span> </a>
+                  <a href="#"> history <span>16</span> </a>
+                  <a href="#"> eassy <span>21</span> </a>
+                  <a href="#"> criticism <span>7</span> </a>
+                </div>
+              </div>
+        </div>
+        </section>
+    </main>
+
+    <section class="footer">
+        <div class="follow">
+          <a href="#" class="fab fa-facebook-f"></a>
+          <a href="#" class="fab fa-twitter"></a>
+          <a href="#" class="fab fa-instagram"></a>
+          <a href="#" class="fab fa-linkedin"></a>
+        </div>
+  
+        <div class="credit">
+          The website is owned and operated by <span>IIT Indore</span> | all rights reserved
+        </div>
+    </section>
+    <script src="{%static "citation/script2.js"%}"></script>
+</body>
+</html>
