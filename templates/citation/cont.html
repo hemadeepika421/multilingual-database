@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact List</title>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+    <style>
+      :root {
+        --orange: #e67e22;
+        --black: #333;
+        --blue: #288ecd;
+        --light-color: #777;
+        --border: 0.1rem solid rgba(0, 0, 0, 0.2);
+        --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        outline: none;
+        border: none;
+        text-decoration: none;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: lighter;
+      }
+
+      html {
+        font-size: 62.5%;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+        scroll-padding-top: 6rem;
+      }
+
+      section {
+        padding: 2rem 4%;
+      }
+
+      .btn {
+        margin-bottom: 2rem;
+        display: inline-block;
+        background: var(--black);
+        color: #fff;
+        border-radius: 0.5rem;
+        padding: 0.9rem 3rem;
+        cursor: pointer;
+        font-size: 1.7rem;
+      }
+
+      .btn:hover {
+        background: var(--orange);
+      }
+
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: #fff;
+        box-shadow: var(--box-shadow);
+        display: flex;
+        align-items: center;
+        padding: 1.2rem 7%;
+      }
+
+      .header .logo {
+        color: var(--blue);
+        font-size: 2.5rem;
+        margin-right: auto;
+      }
+
+      .header .logo span {
+        color: var(--orange);
+      }
+
+      .header .navbar a {
+        color: var(--light-color);
+        margin-right: 2rem;
+        font-size: 1.7rem;
+        text-transform: capitalize;
+      }
+
+      .header .navbar a:hover {
+        color: var(--orange);
+      }
+
+      .header .icons i {
+        height: 4.5rem;
+        line-height: 4.5rem;
+        width: 4.5rem;
+        text-align: center;
+        color: var(--black);
+        background: #eee;
+        border-radius: 50%;
+        margin-left: 0.7rem;
+        font-size: 1.7rem;
+        cursor: pointer;
+      }
+
+      .header .icons i:hover {
+        color: #fff;
+        background: var(--orange);
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+      }
+      .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        margin-top: 10vh;
+        background-color: #fff;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+      }
+  
+      h1 {
+        color: #333;
+        text-align: center;
+      }
+  
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+  
+      li {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+      }
+  
+      strong {
+        font-weight: bold;
+      }
+      p {
+        text-align: center;
+        color: #777;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <a href="{% url 'home' %}" class="logo"><span>P</span>olyglot</a>
+
+      <nav class="navbar">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'admin_page' %}">Return</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="nav__button-ghost"
+          >Logout <i class="fa-solid fa-right-from-bracket"></i
+        ></a>
+        {% else %}
+        <a href="{% url 'login' %}" class="nav__button-ghost"
+          >Login <i class="fa-solid fa-right-to-bracket"></i
+        ></a>
+        {% endif %}
+      </nav>
+    </header>
+    <div class="container">
+      <h1>Contact List</h1>
+
+      {% if mssg %}
+      <ul>
+        {% for contact in mssg %}
+        <li>
+          <strong>Email:</strong> {{ contact.email }}<br />
+          <strong>Number:</strong> {{ contact.number }}<br />
+          <strong>Name:</strong> {{ contact.name }}<br />
+          <strong>Subject:</strong> {{ contact.subject }}<br />
+          <strong>Text:</strong> {{ contact.text }}
+        </li>
+        <a href="/admin1/del_contacts/{{contact.id}}" class="btn"
+          >Delete</a
+        >
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No contacts available.</p>
+      {% endif %}
+    </div>
+    <script src="{%static "citation/script.js"%}"></script>
+  </body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>article</title>
+    <style>
+        /* Reset CSS */
+        :root{
+          --orange:#e67e22;
+          --black:#333;
+          --blue: #288ecd;
+          --light-color:#777;
+          --border:.1rem solid rgba(0,0,0,.2);
+          --box-shadow:0 .5rem 1rem rgba(0,0,0,.2);
+      }
+      
+      *{
+          margin:0; padding:0;
+          box-sizing: border-box;
+          outline: none; border:none;
+          text-decoration: none;
+          font-family: Verdana, Geneva, Tahoma, sans-serif;
+          font-weight: lighter;
+      }
+      
+      html{
+          font-size: 62.5%;
+          overflow-x: hidden;
+          scroll-behavior: smooth;
+          scroll-padding-top: 6rem;
+      }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header{
+          position: fixed;
+          top:0; left:0; right:0;
+          z-index: 1000;
+          background: #fff;
+          box-shadow: var(--box-shadow);
+          display: flex;
+          align-items: center;
+          padding:1.2rem 7%;
+      }
+      
+      .header .logo{
+          color:var(--blue);
+          font-size: 2.5rem;
+          margin-right: auto;
+      }
+      
+      .header .logo span{
+          color:var(--orange);
+      }
+      
+      .header .navbar a{
+          color:var(--light-color);
+          margin-right: 2rem;
+          font-size: 1.7rem;
+          text-transform: capitalize;
+      }
+      
+      .header .navbar a:hover{
+          color:var(--orange);
+      }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            margin-top: 15vh;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        .book-info {
+            padding: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .book-info p {
+            margin-bottom: 10px;
+        }
+
+        .abstract {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-left: 4px solid var(--blue);
+          }
+
+        .abstract h2 {
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .related-books {
+            padding: 20px;
+            border-top: 1px solid #ccc;
+        }
+
+        .related-books h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .related-books ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .related-books li {
+            margin-bottom: 5px;
+            color: #666;
+        }
+
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .abstract {
+                padding: 10px;
+            }
+        }
+
+        /* Styles for the collapsible citation */
+      .collapsible {
+        padding: 10px 30px;
+        border: 10px;
+        margin-left: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        color: #2d2d2d;
+        background-color: #ceecff;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 1px;
+        transition: max-height 0.3s ease-out;
+        overflow: hidden;
+      }
+    
+      .collapsible.active {
+        max-height: 300px; /* Adjust as needed */
+      }
+    
+      .citation-content {
+        padding: 10px;
+    }
+    .citation-content {
+        display: none;
+        margin-bottom: 20px;
+        margin-left: 20px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-left: 4px solid var(--blue);
+      }
+
+      .citation-content h2 {
+        margin-bottom: 10px;
+        color: #002136;
+      }
+      .citation-content button {
+        margin-left: 30px;
+      }
+    </style>
+</head>
+
+<body>
+  <header class="header">
+    <a href="/" class="logo"><span>P</span>olyglot</a>
+
+    <nav class="navbar">
+      <a href="/">Home</a>
+    </nav>
+
+    <div class="icons">
+      <i class="fas fa-bars" id="menu-bars"></i>
+      <i class="fas fa-search" id="search-icon"></i>
+    </div>
+  </header>
+    <div class="container">
+        <h1>{{ data.title }}</h1>
+        <div class="book-info">
+            <p><strong>Author:</strong> {{ data.author_name }}</p>
+            <p><strong>Publication:</strong> {{ data.publisher }}</p>
+            <p><strong>Accession number</strong> {{ data.accession_number }}</p>
+            <p><strong>Class number:</strong> {{ data.class_number }}</p>
+            <p><strong>Year:</strong> {{ data.year }}</p>
+            <p><strong>Collection:</strong>{{ data.collection }}</p>
+            <p><strong>Language</strong>  {{ data.language }}</p>
+            <p><strong>Open Access:</strong> No</p>
+        </div>
+        <div class="abstract">
+            <h2>Abstract</h2>
+            <p>
+                Not available for this article
+            </p>
+        </div>
+        <button class="collapsible" onclick="toggleCitation()">Cite <i class="fa-solid fa-chevron-down"></i> </button>
+    
+        <!-- Collapsible citation content -->
+        <div class="citation-content">
+          <h3 style="margin-left: 20px ;">MLA-Format</h3>
+          <h2 id="citationText">{{citation}}</h2>
+          <button onclick="copyCitation()">Copy <i class="fa-solid fa-copy"></i></button>
+        </div>
+    </div>
+
+    <script>
+        function citeBook() {
+            // Display citation in pop-up
+            var popup = document.getElementById("citationPopup");
+            popup.style.display = "block";
+          }
+    
+          function toggleCitation() {
+            var citationContent = document.querySelector('.citation-content');
+            var button = document.querySelector('.collapsible');
+      
+            // Toggle active class and display citation content
+            citationContent.style.display = citationContent.style.display === 'block' ? 'none' : 'block';
+            button.classList.toggle('active');
+      
+          }
+    
+          function copyCitation() {
+            // Copy citation text to clipboard
+            var citationText = document.getElementById("citationText");
+            var range = document.createRange();
+            range.selectNode(citationText);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand("copy");
+            window.getSelection().removeAllRanges();
+      
+            // Alert user after copying
+            alert("Citation copied to clipboard!");
+          }
+    </script>
+</body>
+
+</html>
